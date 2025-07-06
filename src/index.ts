@@ -1,4 +1,5 @@
-﻿export * from './icons'
+﻿export * from './components'
+export * from './icons'
 export * from './tokens'
 export * from './utils'
-export * from './components'
+export { default as plugin } from './plugin'
