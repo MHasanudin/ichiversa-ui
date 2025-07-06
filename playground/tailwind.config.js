@@ -1,26 +1,16 @@
-// tailwind.config.js
-
-const { colors } = require('./src/tokens/colors.js');
-const { spacing } = require('./src/tokens/spacing.js');
-const { radii } = require('./src/tokens/radii.js');
-const { shadows } = require('./src/tokens/shadows.js');
-const { fontFamilies, fontSizes, fontWeights } = require('./src/tokens/font.js');
-const { duration, easing } = require('./src/tokens/animations.js');
-
+// tailwind.config.js - Playground
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
-    "./playground/**/*.{vue,js,ts,jsx,tsx}",
-    "./node_modules/ichiversa-ui/**/*.{js,ts,vue}"
+    "../src/**/*.{vue,js,ts,jsx,tsx}"
   ],
   darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
-      // Colors from design tokens
+      // Colors using CSS variables
       colors: {
-        // Brand colors
         primary: {
           50: 'rgb(var(--color-primary-50) / <alpha-value>)',
           100: 'rgb(var(--color-primary-100) / <alpha-value>)',
@@ -49,8 +39,6 @@ module.exports = {
           950: 'rgb(var(--color-secondary-950) / <alpha-value>)',
           DEFAULT: 'var(--color-secondary)',
         },
-        
-        // Semantic colors using CSS variables
         success: {
           50: 'var(--color-success-50)',
           100: 'var(--color-success-100)',
@@ -83,21 +71,20 @@ module.exports = {
           900: 'var(--color-info-900)',
           DEFAULT: 'var(--color-info)',
         },
-
-        // Layout colors
         background: 'var(--color-background)',
         foreground: 'var(--color-foreground)',
         surface: 'var(--color-surface)',
+        'surface-hover': 'var(--color-surface-hover)',
         border: 'var(--color-border)',
+        'border-hover': 'var(--color-border-hover)',
         input: 'var(--color-input)',
+        'input-border': 'var(--color-input-border)',
         ring: 'var(--color-ring)',
         muted: 'var(--color-muted)',
         'muted-foreground': 'var(--color-muted-foreground)',
       },
 
-      // Spacing from design tokens
       spacing: {
-        ...spacing,
         xs: 'var(--spacing-xs)',
         sm: 'var(--spacing-sm)',
         md: 'var(--spacing-md)',
@@ -107,9 +94,7 @@ module.exports = {
         '3xl': 'var(--spacing-3xl)',
       },
 
-      // Border radius from design tokens
       borderRadius: {
-        ...radii,
         xs: 'var(--radius-xs)',
         sm: 'var(--radius-sm)',
         DEFAULT: 'var(--radius-md)',
@@ -118,9 +103,6 @@ module.exports = {
         xl: 'var(--radius-xl)',
         '2xl': 'var(--radius-2xl)',
         '3xl': 'var(--radius-3xl)',
-        full: 'var(--radius-full)',
-        
-        // Component specific radius
         button: 'var(--radius-button)',
         card: 'var(--radius-card)',
         input: 'var(--radius-input)',
@@ -129,9 +111,7 @@ module.exports = {
         badge: 'var(--radius-badge)',
       },
 
-      // Box shadows from design tokens
       boxShadow: {
-        ...shadows,
         xs: 'var(--shadow-xs)',
         sm: 'var(--shadow-sm)',
         DEFAULT: 'var(--shadow-md)',
@@ -140,8 +120,6 @@ module.exports = {
         xl: 'var(--shadow-xl)',
         '2xl': 'var(--shadow-2xl)',
         inner: 'var(--shadow-inner)',
-        
-        // Component specific shadows
         button: 'var(--shadow-button)',
         'button-hover': 'var(--shadow-button-hover)',
         card: 'var(--shadow-card)',
@@ -151,44 +129,12 @@ module.exports = {
         focus: 'var(--shadow-focus)',
       },
 
-      // Typography from design tokens
       fontFamily: {
         sans: 'var(--font-family-sans)',
         serif: 'var(--font-family-serif)',
         mono: 'var(--font-family-mono)',
       },
 
-      fontSize: {
-        xs: 'var(--font-size-xs)',
-        sm: 'var(--font-size-sm)',
-        base: 'var(--font-size-base)',
-        lg: 'var(--font-size-lg)',
-        xl: 'var(--font-size-xl)',
-        '2xl': 'var(--font-size-2xl)',
-        '3xl': 'var(--font-size-3xl)',
-        '4xl': 'var(--font-size-4xl)',
-      },
-
-      fontWeight: {
-        thin: 'var(--font-weight-thin)',
-        light: 'var(--font-weight-light)',
-        normal: 'var(--font-weight-normal)',
-        medium: 'var(--font-weight-medium)',
-        semibold: 'var(--font-weight-semibold)',
-        bold: 'var(--font-weight-bold)',
-        extrabold: 'var(--font-weight-extrabold)',
-        black: 'var(--font-weight-black)',
-      },
-
-      lineHeight: {
-        tight: 'var(--line-height-tight)',
-        snug: 'var(--line-height-snug)',
-        normal: 'var(--line-height-normal)',
-        relaxed: 'var(--line-height-relaxed)',
-        loose: 'var(--line-height-loose)',
-      },
-
-      // Animation durations and easings
       transitionDuration: {
         75: 'var(--duration-75)',
         100: 'var(--duration-100)',
@@ -208,48 +154,10 @@ module.exports = {
         smooth: 'var(--ease-smooth)',
         bounce: 'var(--ease-bounce)',
       },
-
-      // Component specific animations
-      animation: {
-        'button-hover': 'var(--animation-button-hover)',
-        'button-press': 'var(--animation-button-press)',
-        'input-focus': 'var(--animation-input-focus)',
-        'modal-enter': 'var(--animation-modal-enter)',
-        'modal-exit': 'var(--animation-modal-exit)',
-      },
-
-      // Keyframes for animations
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        fadeOut: {
-          '0%': { opacity: '1' },
-          '100%': { opacity: '0' },
-        },
-        slideIn: {
-          '0%': { transform: 'translateY(-10px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
-        slideOut: {
-          '0%': { transform: 'translateY(0)', opacity: '1' },
-          '100%': { transform: 'translateY(-10px)', opacity: '0' },
-        },
-        scaleIn: {
-          '0%': { transform: 'scale(0.95)', opacity: '0' },
-          '100%': { transform: 'scale(1)', opacity: '1' },
-        },
-        scaleOut: {
-          '0%': { transform: 'scale(1)', opacity: '1' },
-          '100%': { transform: 'scale(0.95)', opacity: '0' },
-        },
-      },
     },
   },
   plugins: [
-    // Plugin untuk component classes
-    function({ addComponents, theme }) {
+    function({ addComponents }) {
       addComponents({
         '.btn': {
           '@apply inline-flex items-center justify-center rounded-button px-4 py-2 text-sm font-medium transition-all duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2': {},
@@ -265,9 +173,6 @@ module.exports = {
         },
         '.card': {
           '@apply rounded-card bg-surface border border-border shadow-card': {},
-        },
-        '.input': {
-          '@apply flex w-full rounded-input border border-input-border bg-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50': {},
         },
       });
     },
