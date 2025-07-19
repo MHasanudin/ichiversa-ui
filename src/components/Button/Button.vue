@@ -33,9 +33,13 @@
       v-if="loading" 
       class="button-loading animate-spin text-current"
       :style="{ fontSize: iconSize + 'px' }"
+      aria-hidden="true"
     >
       ⟳
     </span>
+    
+    <!-- Screen reader only loading text -->
+    <span v-if="loading" class="sr-only">Loading...</span>
   </component>
 </template>
 
@@ -249,6 +253,7 @@ const iconSize = computed(() => {
 const handleClick = (event: MouseEvent) => {
   if (props.disabled || props.loading) {
     event.preventDefault();
+    event.stopPropagation();
     return;
   }
   emit('click', event);
@@ -279,6 +284,20 @@ const handleClick = (event: MouseEvent) => {
 .button-loading ~ .button-icon-left,
 .button-loading ~ .button-icon-right {
   opacity: 0;
+  pointer-events: none;
+}
+
+/* Screen reader only class for accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Custom focus ring for better accessibility */

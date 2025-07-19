@@ -75,7 +75,18 @@ if (fs.existsSync(catIndexPath)) {
 // --- Cek apakah kategori kosong, hapus export di src/components/index.ts kalau sudah kosong
 const komponenTersisa = fs.readdirSync(categoryFolder, { withFileTypes: true })
   .filter(f => f.isDirectory());
-if (komponenTersisa.length === 0 && fs.existsSync(COMPONENTS_INDEX)) {
+
+// Also check if category index.ts exists and has any meaningful exports
+let categoryHasExports = false;
+const categoryIndexPath = path.join(categoryFolder, 'index.ts');
+if (fs.existsSync(categoryIndexPath)) {
+  const catIndexContent = fs.readFileSync(categoryIndexPath, "utf-8").trim();
+  // Check if there are any export statements other than empty lines/comments
+  categoryHasExports = catIndexContent.split('\n').some(line => 
+    line.trim().startsWith('export') && line.includes('./'));
+}
+
+if (komponenTersisa.length === 0 && !categoryHasExports && fs.existsSync(COMPONENTS_INDEX)) {
   let compIndex = fs.readFileSync(COMPONENTS_INDEX, "utf-8");
   const compExportLine = `export * from './${category}'\n`;
   compIndex = compIndex.replace(compExportLine, '');
